@@ -1,0 +1,55 @@
+[workspace]
+resolver = "2"
+members = [".", "slot-machine-procmacro", "slot-machine-crypto"]
+
+[package]
+name = "slot-machine"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "slot_machine_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[dependencies]
+anyhow = "1.0.95"
+chrono = "0.4.40"
+clap = { version = "4.5.29", features = ["derive"] }
+flume = "0.11.1"
+prost = "0.13.5"
+rand = "0.9.0"
+rand_core = "0.9.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+slot-machine-procmacro = { version = "0.1.0", path = "slot-machine-procmacro" }
+strum = "0.27.1"
+strum_macros = "0.27.1"
+tauri = { git = "https://github.com/tauri-apps/tauri.git", rev = "72211beec3efcb02472e580e827c0e2a2d69f2cc", features = [
+] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+slot-machine-crypto = { path = "./slot-machine-crypto", features = ["decrypt"] }
+
+gpiocdev = { version = "0.7.3", optional = true }
+libc = { version = "0.2.172", optional = true }
+
+[build-dependencies]
+prost-build = "0.13.5"
+tauri-build = { git = "https://github.com/tauri-apps/tauri.git", rev = "72211beec3efcb02472e580e827c0e2a2d69f2cc", features = [
+] }
+
+[features]
+default = []
+kiosk = []
+gpio = ["gpiocdev"]
+
+dist = ["libc"]
+prod = ["gpio", "kiosk"]
+
+[profile.appimage]
+inherits = "dev"
+# This is the line that disables the devtools console
+debug-assertions = false

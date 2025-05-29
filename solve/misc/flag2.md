@@ -1,0 +1,1 @@
+On the machine, there is a sheet to indicate maintenances. On the sheet, there is the URL to the manufacturer's website and a QR code that gives you the model number. Putting the model number on the website gives you the flag.

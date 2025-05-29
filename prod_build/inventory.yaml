@@ -1,0 +1,22 @@
+# This YAML file defines all machines that Ansible needs to know about to run playbooks and configure machines.
+all:
+  hosts:
+    nsec-builder:
+      ansible_incus_host: nsec-builder
+      ansible_connection: community.general.incus
+      ansible_incus_remote: local
+      ansible_incus_project: nsec-builder
+      build_flags: --bundles appimage -- --profile appimage --features dist
+      bundle_path: appimage/bundle/appimage/slot-machine_0.1.0_amd64.AppImage
+      protoc_arch: x86_64
+    nsec-builder-arm:
+      ansible_host: 255.255.255.255 # Change here. We used an ARM AWS instance for building.
+      ansible_user: ubuntu
+      ansible_become: true
+      ansible_ssh_private_key_file: ./private_key
+      build_flags: --bundles deb -- --features prod
+      bundle_path: release/bundle/deb/slot-machine_0.1.0_arm64.deb
+      protoc_arch: aarch_64
+  vars:
+    # Do not change these.
+    ansible_user: root

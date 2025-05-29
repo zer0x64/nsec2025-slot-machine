@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package models;
+
+message StartResponse {
+    uint64 starting_credits = 1;
+    uint64 required_credits = 2;
+    uint32 denomination = 3;
+    uint32 n_wheels = 4;
+    repeated Symbol reel_layout = 5;
+    optional bytes debug_info = 6;
+}
+
+message SpinResponse {
+    repeated Symbol stops = 1;
+    uint64 payout = 2;
+    uint64 credits = 3;
+}
+
+enum Symbol {
+    Cherry = 0;
+    Bar = 1;
+    DoubleBar = 2;
+    TripleBar = 3;
+    Seven = 4;
+    MinorJackpot = 5;
+    MajorJackpot = 6;
+    GrandJackpot = 7;
+}

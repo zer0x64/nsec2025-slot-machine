@@ -1,0 +1,34 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "slot-machine",
+  "version": "0.1.0",
+  "identifier": "com.slot-machine.app",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "./client/build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "slot-machine",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["client/static/images/majorJackpot.png"],
+    "linux": {
+      "appimage": {
+        "useNewFormat": true
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@source './**/*.{html,js,svelte,ts}';
+
+/* WonderLight color scheme */
+@layer base {
+    :root {
+        --color-primary: #00ccff;
+        --color-primary-hover: #33d6ff;
+        --color-primary-glow: rgba(0, 204, 255, 0.5);
+        --color-secondary: #7fdbff;
+        --color-background-start: #0a2844;
+        --color-background-end: #1c75bc;
+        --color-card-bg: rgba(255, 255, 255, 0.1);
+        --color-white: #ffffff;
+        --color-black: #000000;
+    }
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-primary, currentColor);
+    }
+}
+
+body {
+    background: linear-gradient(
+        to bottom,
+        var(--color-background-start),
+        var(--color-background-end)
+    );
+    color: var(--color-white);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.wonderlight-button {
+    @apply bg-[#00ccff] text-white border-none py-2 px-4 rounded cursor-pointer transition-all uppercase tracking-wider shadow-[0_0_10px_rgba(0,204,255,0.3)];
+}
+
+.wonderlight-button:hover {
+    @apply bg-[#33d6ff] shadow-[0_0_20px_rgba(0,204,255,0.5)] scale-105;
+}
+
+.wonderlight-card {
+    @apply bg-[rgba(255,255,255,0.1)] rounded-lg shadow-[0_0_20px_rgba(28,117,188,0.2)];
+}
+
+.wonderlight-heading {
+    @apply text-[#00ccff] font-bold shadow-[0_0_10px_rgba(0,204,255,0.5)];
+}
+
+.wonderlight-subheading {
+    @apply text-[#7fdbff] italic;
+}

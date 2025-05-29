@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WonderLight™ Slots</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                min-height: 100vh;
+                background: linear-gradient(to bottom, #0a2844, #1c75bc);
+                font-family: Arial, sans-serif;
+            }
+            .wonderlight-container {
+                color: #fff;
+                padding: 40px;
+                text-align: center;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            .hero-section {
+                margin-bottom: 40px;
+            }
+            .hero-section h1 {
+                font-size: 2.5em;
+                margin-bottom: 15px;
+                color: #00ccff;
+                text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+            }
+            .hero-section .sub-text {
+                font-style: italic;
+                color: #7fdbff;
+                font-size: 1.2em;
+                margin-top: 20px;
+            }
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                margin: 40px auto;
+                max-width: 900px;
+            }
+            .feature {
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                transition: transform 0.3s;
+                box-shadow: 0 0 20px rgba(28, 117, 188, 0.2);
+            }
+            .feature:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 0 30px rgba(28, 117, 188, 0.4);
+            }
+            .feature i {
+                font-size: 2em;
+                color: #00ccff;
+                margin-bottom: 15px;
+            }
+            .magic-features {
+                margin: 40px 0;
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 15px;
+            }
+            .sparkle-text {
+                color: #7fdbff;
+                font-size: 1.1em;
+                letter-spacing: 1px;
+            }
+            .search-container {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .search-form {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            .search-form input {
+                padding: 10px;
+                border-radius: 5px;
+                border: none;
+                width: 300px;
+                font-size: 16px;
+                background: rgba(255, 255, 255, 0.9);
+            }
+            .search-form button {
+                background: #00ccff;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: all 0.3s;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+            }
+            .search-form button:hover {
+                background: #33d6ff;
+                box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+                transform: scale(1.05);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wonderlight-container">
+            <div class="hero-section">
+                <h1>Welcome to the Magical World of WonderLight™ Slots</h1>
+                <p>
+                    Step into an enchanting realm where cutting-edge technology
+                    meets pure gaming excitement. Our state-of-the-art slot
+                    machines are crafted to transport you to a world of endless
+                    possibilities and thrilling wins.
+                </p>
+                <p class="sub-text">
+                    Where Dreams and Fortune Align Under the WonderLight™ Stars
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-star"></i>
+                    <h3>Premium Quality</h3>
+                    <p>
+                        Experience the pinnacle of gaming excellence with our
+                        meticulously crafted machines, featuring stunning HD
+                        displays, immersive sound systems, and ergonomic design
+                        that sets new standards in the industry
+                    </p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure™ Gaming</h3>
+                    <p>
+                        Rest easy knowing your gaming experience is protected by
+                        military-grade encryption™, advanced fraud detection™,
+                        and our proprietary WonderShield™ security system,
+                        ensuring peace of mind with every spin
+                    </p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-sync"></i>
+                    <h3>Regular Updates</h3>
+                    <p>
+                        Embark on new adventures every month with our extensive
+                        library of fresh games, innovative features, and
+                        exciting seasonal themes. Your journey of discovery
+                        never ends at WonderLight™
+                    </p>
+                </div>
+            </div>
+            <div class="magic-features">
+                <div class="sparkle-text">
+                    ✨ Over 1000+ Themed Games ✨ 24/7 Technical Support ✨
+                    Industry-Leading Payout Rates ✨
+                </div>
+            </div>
+            <div class="search-container">
+                <h2>WonderLight™ Slot Specifications</h2>
+                <p>
+                    Unlock the technical marvels behind your favorite
+                    WonderLight™ machine. Simply enter your model number below
+                    to discover the magic within.
+                </p>
+                <div class="search-form">
+                    <input
+                        type="text"
+                        id="model-search"
+                        placeholder="Enter Model Number (e.g. WL-786509a906dc9fccd6fa91423eccba951)"
+                    />
+                    <button
+                        onclick="window.location.href='/specs/' + document.getElementById('model-search').value"
+                    >
+                        Reveal Specs
+                    </button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

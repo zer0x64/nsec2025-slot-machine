@@ -1,0 +1,187 @@
+- name: "Build slot-machine"
+  hosts: "*"
+  tasks:
+    - name: Initial System Upgrade
+      ansible.builtin.apt:
+        update_cache: true
+        install_recommends: false
+        upgrade: full
+
+    - name: Install build dependencies
+      ansible.builtin.apt:
+        name:
+          - libwebkit2gtk-4.1-dev
+          - build-essential
+          - curl
+          - wget
+          - file
+          - libxdo-dev
+          - libssl-dev
+          - libayatana-appindicator3-dev
+          - librsvg2-dev
+          - gcc
+          - unzip
+          - xdg-utils
+          - patchelf
+        state: present
+
+    - name: Check if protoc is installed
+      stat:
+        path: /opt/protoc/bin/protoc
+      register: protoc_exists
+
+    - name: Download protoc
+      when: not protoc_exists.stat.exists
+      get_url:
+        url: https://github.com/protocolbuffers/protobuf/releases/download/v30.2/protoc-30.2-linux-{{ protoc_arch }}.zip
+        dest: /tmp/protoc.zip
+        mode: "0755"
+        force: "yes"
+      tags:
+        - rust
+
+    - name: Create protoc dir
+      when: not protoc_exists.stat.exists
+      ansible.builtin.file:
+        path: /opt/protoc
+        state: directory
+
+    - name: Unarchive protoc
+      when: not protoc_exists.stat.exists
+      ansible.builtin.unarchive:
+        src: /tmp/protoc.zip
+        dest: /opt/protoc
+        remote_src: yes
+
+    - name: Check if cargo is installed
+      stat:
+        path: /root/.cargo/bin/cargo
+      register: cargo_exists
+
+    - name: Download Cargo Installer
+      when: not cargo_exists.stat.exists
+      get_url:
+        url: https://sh.rustup.rs
+        dest: /tmp/sh.rustup.rs
+        mode: "0755"
+        force: "yes"
+      tags:
+        - rust
+
+    - name: Install Cargo
+      when: not cargo_exists.stat.exists
+      shell: /tmp/sh.rustup.rs -y
+      tags:
+        - rust
+
+    - name: Update Cargo
+      shell: /root/.cargo/bin/rustup update
+      tags:
+        - rust
+
+    - name: Check if NVM is installed
+      shell: /bin/bash -c "source /root/.nvm/nvm.sh && nvm -v"
+      register: nvm_exists
+      ignore_errors: true
+      tags:
+        - nvm
+
+    - name: Download nvm installer
+      when: nvm_exists is failed
+      get_url:
+        url: https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh
+        dest: /tmp/nvm_install.sh
+        mode: "0755"
+        force: "yes"
+      tags:
+        - nvm
+
+    - name: Install NVM
+      when: nvm_exists is failed
+      shell: /tmp/nvm_install.sh -y
+      tags:
+        - nvm
+
+    - name: Check if NPM is installed
+      shell: /bin/bash -c "source /root/.nvm/nvm.sh && npm -v"
+      register: npm_exists
+      ignore_errors: true
+      tags:
+        - npm
+
+    - name: Install NPM
+      when: npm_exists is failed
+      shell: /bin/bash -c "source /root/.nvm/nvm.sh && nvm install 22"
+      tags:
+        - npm
+
+    - name: Find npm installation
+      shell: /bin/bash -c "source /root/.nvm/nvm.sh && which npm | xargs dirname"
+      register: npm_path
+
+    - name: Check if tauri-cli is installed
+      stat:
+        path: /root/.cargo/bin/cargo-tauri
+      register: tauri_cli_exists
+      tags:
+        - tauri-cli
+
+    - name: Install tauri-cli
+      ansible.builtin.command: /root/.cargo/bin/cargo install tauri-cli --git https://github.com/tauri-apps/tauri.git --rev 72211beec3efcb02472e580e827c0e2a2d69f2cc
+      when: tauri_cli_exists.stat.exists == false
+      tags:
+        - tauri-cli
+
+    - name: Create build dir
+      ansible.builtin.file:
+        path: /tmp/slot-machine
+        state: directory
+        owner: root
+        group: root
+        mode: "0744"
+
+    - name: Copy the challenge sources
+      ansible.builtin.copy:
+        src: ../{{ item }}
+        dest: /tmp/slot-machine/{{ item }}
+        owner: root
+        group: root
+        mode: "0644"
+      loop:
+        - build.rs
+        - Cargo.toml
+        - Cargo.lock
+        - tauri.conf.json
+        - src/
+        - capabilities/
+        - schemas/
+        - slot-machine-crypto/
+        - slot-machine-procmacro/
+        - client/src/
+        - client/static/
+        - client/.npmrc
+        - client/jsconfig.json
+        - client/package.json
+        - client/package-lock.json
+        - client/postcss.config.js
+        - client/svelte.config.js
+        - client/vite.config.js
+
+    - name: Install NPM packages
+      community.general.npm:
+        path: /tmp/slot-machine/client
+      environment:
+        - PATH: "{{ npm_path.stdout }}:/root/.cargo/bin:/opt/protoc/bin:{{ ansible_env.PATH }}"
+
+    - name: Build
+      ansible.builtin.command:
+        cmd: cargo tauri build {{ build_flags }}
+        chdir: /tmp/slot-machine/
+      environment:
+        - PATH: "{{ npm_path.stdout }}:/root/.cargo/bin:/opt/protoc/bin:{{ ansible_env.PATH }}"
+
+    - name: Fetch the appimage
+      ansible.builtin.fetch:
+        src: /tmp/slot-machine/target/{{ bundle_path }}
+        dest: ./
+        flat: true

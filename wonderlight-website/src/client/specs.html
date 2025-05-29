@@ -1,0 +1,306 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WonderLight™ Slot - Specifications</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html,
+            body {
+                width: 100%;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0;
+                background: linear-gradient(to bottom, #0a2844, #1c75bc);
+                color: #fff;
+                font-family: Arial, sans-serif;
+                overflow-x: hidden;
+            }
+
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 40px 20px;
+            }
+
+            body {
+                background: linear-gradient(to bottom, #0a2844, #1c75bc);
+                color: #fff;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 40px;
+            }
+            .container {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 15px;
+                padding: 30px;
+                box-shadow: 0 0 30px rgba(28, 117, 188, 0.2);
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            .card {
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(0, 204, 255, 0.2);
+                border-radius: 8px;
+                margin: 20px 0;
+                padding: 20px;
+            }
+            h1 {
+                color: #00ccff;
+                text-align: center;
+                text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+                font-size: 2.5em;
+                margin-bottom: 30px;
+            }
+            h5 {
+                color: #7fdbff;
+                font-size: 1.3em;
+                margin-bottom: 20px;
+            }
+            .list-unstyled {
+                list-style: none;
+                padding: 0;
+            }
+            .list-unstyled li {
+                margin: 10px 0;
+                color: #fff;
+            }
+            .list-unstyled strong {
+                color: #7fdbff;
+                margin-right: 10px;
+            }
+            .alert-warning {
+                background: rgba(0, 204, 255, 0.1);
+                border: 1px solid #00ccff;
+                color: #7fdbff;
+                padding: 15px;
+                border-radius: 5px;
+                margin: 20px 0;
+            }
+            .form-group {
+                margin: 20px 0;
+            }
+            .form-group label {
+                display: block;
+                color: #7fdbff;
+                margin-bottom: 10px;
+            }
+            input {
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: 1px solid rgba(0, 204, 255, 0.3);
+                background: rgba(0, 0, 0, 0.2);
+                color: #fff;
+                margin-bottom: 20px;
+            }
+            .btn-primary {
+                background: #00ccff;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+            }
+            .btn-primary:hover {
+                background: #33d6ff;
+                box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+                transform: scale(1.05);
+            }
+
+            .error-notification {
+                position: fixed;
+                top: -100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(0, 0, 0, 0.9);
+                color: #00ccff;
+                padding: 20px 40px;
+                border-radius: 8px;
+                border: 1px solid #00ccff;
+                box-shadow:
+                    0 0 20px rgba(0, 204, 255, 0.3),
+                    inset 0 0 15px rgba(0, 204, 255, 0.2);
+                z-index: 1000;
+                transition: top 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                text-align: center;
+                font-size: 1.1em;
+                backdrop-filter: blur(5px);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .error-notification.show {
+                top: 20px;
+            }
+
+            .lock-icon {
+                width: 20px;
+                height: 20px;
+                position: relative;
+                display: inline-block;
+            }
+
+            .lock-icon::before {
+                content: "";
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                background: currentColor;
+                border-radius: 3px;
+            }
+
+            .lock-icon::after {
+                content: "";
+                position: absolute;
+                width: 10px;
+                height: 8px;
+                border: 2px solid currentColor;
+                border-bottom: none;
+                border-radius: 10px 10px 0 0;
+                top: -2px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            @keyframes glow {
+                0% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.5;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
+            .error-notification .lock-icon {
+                animation: glow 2s infinite;
+            }
+
+            .sparkle {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: #00ccff;
+                border-radius: 50%;
+                animation: sparkle 1.5s ease-in-out infinite;
+                opacity: 0;
+            }
+
+            @keyframes sparkle {
+                0% {
+                    transform: scale(0);
+                    opacity: 0;
+                }
+                50% {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(0);
+                    opacity: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>✨ WonderLight™ CVSS 777 Pro ✨</h1>
+            <div class="card">
+                <h5>✨ Technical Specifications</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Display:</strong> 32" HD LCD Screen</li>
+                    <li><strong>Dimensions:</strong> 30" W x 24" D x 60" H</li>
+                    <li><strong>Power:</strong> 110V/220V Compatible</li>
+                    <li><strong>Payout Rate:</strong> 49.82%</li>
+                    <li>
+                        <strong>Game Modes:</strong> White Stakes, Red Stakes,
+                        Blue Stakes, Diamond Stakes
+                    </li>
+                    <li><strong>Payment Systems:</strong> Access Badge</li>
+                    <li><strong>Certifications:</strong>{{ flag }}</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h5>✨ Firmware Downloads</h5>
+                <div class="alert-warning">
+                    🔒 Authorized WonderLight™ Service Personnel Only
+                </div>
+                <form id="firmwareForm">
+                    <div class="form-group">
+                        <label for="password">Service Password:</label>
+                        <input type="password" id="password" required />
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        Download Firmware
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="error-notification" id="errorNotification">
+            <div class="lock-icon"></div>
+            Access Denied - Invalid Service Password
+        </div>
+
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function () {
+                var form = document.getElementById("firmwareForm");
+                var errorNotification =
+                    document.getElementById("errorNotification");
+
+                function createSparkle() {
+                    const sparkle = document.createElement("div");
+                    sparkle.className = "sparkle";
+                    sparkle.style.left = Math.random() * 100 + "%";
+                    sparkle.style.top = Math.random() * 100 + "%";
+                    errorNotification.appendChild(sparkle);
+
+                    setTimeout(() => sparkle.remove(), 1500);
+                }
+
+                function showError() {
+                    errorNotification.classList.add("show");
+
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(createSparkle, i * 300);
+                    }
+
+                    setTimeout(() => {
+                        errorNotification.classList.remove("show");
+                    }, 3000);
+                }
+
+                if (form) {
+                    form.addEventListener("submit", function (e) {
+                        e.preventDefault();
+
+                        const password =
+                            document.getElementById("password").value;
+
+                        if (password === "{{ password }}") {
+                            window.location.href = "{{ link }}";
+                        } else {
+                            showError();
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>
