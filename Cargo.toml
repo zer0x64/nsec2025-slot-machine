@@ -6,6 +6,9 @@ members = [".", "slot-machine-procmacro", "slot-machine-crypto"]
 name = "slot-machine"
 version = "0.1.0"
 edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Wonderlight Slot Machine for NorthSec 2025"
+authors = ["zer0x64"]
 
 [lib]
 # The `_lib` suffix may seem redundant but it is necessary

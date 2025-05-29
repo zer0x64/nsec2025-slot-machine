@@ -4,6 +4,9 @@
 name = "wonderlight-website"
 version = "0.1.0"
 edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "Official website for the Wonderlight Slot Machine"
+authors = ["zer0x64"]
 
 [dependencies]
 axum = "0.8.3"
