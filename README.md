@@ -2,6 +2,8 @@
 
 This repository contains the code and resources for the Wonderlight Slot Machine, developed for NorthSec 2025 CTF. The project simulates a casino slot machine with vulnerable Random Number Generators (RNGs) that could be exploited to win large sums of money.
 
+[Here is a full writeup from the only team that fully solved the track](https://ptrstr.github.io/posts/nsec-2025-hit-the-jackpot/)
+
 ## Overview
 
 The Wonderlight Slot Machine is a Rust-based project that includes:
